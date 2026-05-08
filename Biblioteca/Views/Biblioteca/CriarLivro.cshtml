@@ -1,0 +1,84 @@
+@{
+    ViewData["Title"] = "Cadastrar Livro";
+}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar Livro</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #6610f2, #2575fc);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+        }
+
+        .card-cadastro {
+            width: 100%;
+            max-width: 550px;
+            background: white;
+            border-radius: 20px;
+            padding: 35px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .titulo {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #6610f2;
+            font-weight: bold;
+        }
+
+        .btn-custom {
+            width: 100%;
+            border-radius: 10px;
+            padding: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card-cadastro">
+        <h2 class="titulo">Cadastro de Livro</h2>
+
+        <form>
+            <div class="mb-3">
+                <label class="form-label">Título do Livro</label>
+                <input type="text" class="form-control" placeholder="Digite o título do livro">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Autor</label>
+                <input type="text" class="form-control" placeholder="Digite o nome do autor">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Categoria</label>
+                <input type="text" class="form-control" placeholder="Digite a categoria">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Ano de Publicação</label>
+                <input type="number" class="form-control" placeholder="Digite o ano">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Descrição</label>
+                <textarea class="form-control" rows="4" placeholder="Digite uma descrição do livro"></textarea>
+            </div>
+
+            <input type="submit" value="Cadastrar Livro" class="btn btn-primary btn-custom">
+        </form>
+    </div>
+
+</body>
+</html>
