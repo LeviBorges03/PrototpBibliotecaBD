@@ -1,4 +1,5 @@
 using Biblioteca.Models;
+using Biblioteca.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Biblioteca.Controllers;
@@ -6,43 +7,18 @@ namespace Biblioteca.Controllers;
 public class BibliotecaController : Controller
 {
 
-    readonly ILivroRepository 
+    private readonly ILivroRepository _livroRepository;
     
-    public BibliotecaController (ILivroRepository _LivroRepository)
+    public BibliotecaController (ILivroRepository livroRepository)
     {
-        -
-
+        _livroRepository = livroRepository;
     }
+
     public IActionResult Index()
     {
         List<Livro> l1 = new List<Livro>()
         {
             new Livro { Titulo = "O Alquimista", Autor = "Paulo Coelho", Genero = "Ficção", NumPaginas = 208, DataPublicacao = new DateOnly(1988, 1, 1), CorCapa = "#D4AF37" },
-            new Livro { Titulo = "Harry Potter and the Prisoner of Azkaban", Autor = "J.K. Rowling", Genero = "Fantasia", NumPaginas = 317, DataPublicacao = new DateOnly(1999, 7, 8), CorCapa = "#4A235A" },
-            new Livro { Titulo = "Dom Casmurro", Autor = "Machado de Assis", Genero = "Romance", NumPaginas = 256, DataPublicacao = new DateOnly(1899, 1, 1), CorCapa = "#2C3E50" },
-            new Livro { Titulo = "A Culpa é das Estrelas", Autor = "John Green", Genero = "Romance", NumPaginas = 313, DataPublicacao = new DateOnly(2012, 1, 10), CorCapa = "#3498DB" },
-            new Livro { Titulo = "A Moreninha", Autor = "Joaquim Manuel de Macedo", Genero = "Romance", NumPaginas = 180, DataPublicacao = new DateOnly(1844, 1, 1), CorCapa = "#E74C3C" },
-            new Livro { Titulo = "Alice no País das Maravilhas", Autor = "Lewis Carroll", Genero = "Fantasia", NumPaginas = 352, DataPublicacao = new DateOnly(1865, 11, 26), CorCapa = "#9B59B6" },
-            new Livro { Titulo = "As Aventuras de Pinóquio", Autor = "Carlo Collodi", Genero = "Infantil", NumPaginas = 192, DataPublicacao = new DateOnly(1883, 1, 1), CorCapa = "#F1C40F" },
-            new Livro { Titulo = "Memórias Póstumas de Brás Cubas", Autor = "Machado de Assis", Genero = "Romance", NumPaginas = 352, DataPublicacao = new DateOnly(1881, 1, 1), CorCapa = "#34495E" },
-            new Livro { Titulo = "O Hobbit", Autor = "J.R.R. Tolkien", Genero = "Fantasia", NumPaginas = 310, DataPublicacao = new DateOnly(1937, 9, 21), CorCapa = "#27AE60" },
-            new Livro { Titulo = "O Mágico de Oz", Autor = "L. Frank Baum", Genero = "Fantasia", NumPaginas = 272, DataPublicacao = new DateOnly(1900, 5, 17), CorCapa = "#1ABC9C" },
-            new Livro { Titulo = "O Pequeno Príncipe", Autor = "Antoine de Saint-Exupéry", Genero = "Infantil", NumPaginas = 96, DataPublicacao = new DateOnly(1943, 4, 6), CorCapa = "#F39C12" },
-            new Livro { Titulo = "O Senhor dos Anéis", Autor = "J.R.R. Tolkien", Genero = "Fantasia", NumPaginas = 1216, DataPublicacao = new DateOnly(1954, 7, 29), CorCapa = "#5D6D7E" },
-            new Livro { Titulo = "1984", Autor = "George Orwell", Genero = "Distopia", NumPaginas = 328, DataPublicacao = new DateOnly(1949, 6, 8), CorCapa = "#17202A" },
-            new Livro { Titulo = "O Conde de Monte Cristo", Autor = "Alexandre Dumas", Genero = "Aventura", NumPaginas = 1312, DataPublicacao = new DateOnly(1844, 8, 28), CorCapa = "#7B241C" },
-            new Livro { Titulo = "Crime e Castigo", Autor = "Fiódor Dostoiévski", Genero = "Ficção Psicológica", NumPaginas = 608, DataPublicacao = new DateOnly(1866, 1, 1), CorCapa = "#4A235A" },
-            new Livro { Titulo = "Os Miseráveis", Autor = "Victor Hugo", Genero = "Romance Histórico", NumPaginas = 1512, DataPublicacao = new DateOnly(1862, 1, 1), CorCapa = "#1A5276" },
-            new Livro { Titulo = "Moby Dick", Autor = "Herman Melville", Genero = "Aventura", NumPaginas = 720, DataPublicacao = new DateOnly(1851, 10, 18), CorCapa = "#1F618D" },
-            new Livro { Titulo = "A Divina Comédia", Autor = "Dante Alighieri", Genero = "Épico", NumPaginas = 798, DataPublicacao = new DateOnly(1320, 1, 1), CorCapa = "#E67E22" },
-            new Livro { Titulo = "Orgulho e Preconceito", Autor = "Jane Austen", Genero = "Romance", NumPaginas = 432, DataPublicacao = new DateOnly(1813, 1, 28), CorCapa = "#F5B041" },
-            new Livro { Titulo = "Anna Karenina", Autor = "Liev Tolstói", Genero = "Romance", NumPaginas = 864, DataPublicacao = new DateOnly(1877, 1, 1), CorCapa = "#922B21" },
-            new Livro { Titulo = "O Morro dos Ventos Uivantes", Autor = "Emily Brontë", Genero = "Romance Gótico", NumPaginas = 400, DataPublicacao = new DateOnly(1847, 12, 1), CorCapa = "#4D5656" },
-            new Livro { Titulo = "Jane Eyre", Autor = "Charlotte Brontë", Genero = "Romance", NumPaginas = 500, DataPublicacao = new DateOnly(1847, 10, 16), CorCapa = "#7D6608" },
-            new Livro { Titulo = "Grandes Esperanças", Autor = "Charles Dickens", Genero = "Ficção", NumPaginas = 544, DataPublicacao = new DateOnly(1861, 1, 1), CorCapa = "#196F3D" },
-            new Livro { Titulo = "A Odisseia", Autor = "Homero", Genero = "Épico", NumPaginas = 541, DataPublicacao = new DateOnly(800, 1, 1), CorCapa = "#154360" },
-            new Livro { Titulo = "Ilíada", Autor = "Homero", Genero = "Épico", NumPaginas = 704, DataPublicacao = new DateOnly(750, 1, 1), CorCapa = "#78281F" },
-            new Livro { Titulo = "Hamlet", Autor = "William Shakespeare", Genero = "Tragédia", NumPaginas = 342, DataPublicacao = new DateOnly(1603, 1, 1), CorCapa = "#17202A" },
             new Livro { Titulo = "Dom Quixote", Autor = "Miguel de Cervantes", Genero = "Romance", NumPaginas = 1072, DataPublicacao = new DateOnly(1605, 1, 1), CorCapa = "#D35400" },
             new Livro { Titulo = "A Metamorfose", Autor = "Franz Kafka", Genero = "Ficção Absurda", NumPaginas = 201, DataPublicacao = new DateOnly(1915, 10, 1), CorCapa = "#2C3E50" },
             new Livro { Titulo = "O Grande Gatsby", Autor = "F. Scott Fitzgerald", Genero = "Tragédia", NumPaginas = 218, DataPublicacao = new DateOnly(1925, 4, 10), CorCapa = "#F1C40F" },
@@ -109,24 +85,24 @@ public class BibliotecaController : Controller
         return View();
     }
 
-    
     public IActionResult CriarLivro()
     {
         return View();
     }
    
-    
     public IActionResult CriarAutor()
     {
         return View();
     }
-}
 
- [HttpPost]
-    public async Task<IActionResult> CriarLivroAsync()
-
+    [HttpPost]
+    public async Task<IActionResult> CriarLivro(Livro livro)
     {
-        await _livroRepository.CriarLivroAsync(Livro);
-        return RedirectToAction("CriarLivro");
-        
+        if (ModelState.IsValid)
+        {
+            await _livroRepository.CriarLivroAsync(livro);
+            return RedirectToAction("Index"); // Adjust as needed
+        }
+        return View(livro);
     }
+}
