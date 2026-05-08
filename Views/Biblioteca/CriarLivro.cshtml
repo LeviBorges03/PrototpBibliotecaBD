@@ -1,0 +1,44 @@
+@model Livro;
+
+@{
+    ViewData["Title"] = "Cadastrar Livro";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h2 class="text-success mb-4">Cadastrar Novo Livro</h2>
+            <form method="post" asp-action="CriarLivro" asp-controller="Biblioteca">
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Título do Livro</label>
+                    <input asp-for="Titulo" type="text" class="form-control" placeholder="Ex: O Pequeno Príncipe">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Ano de Publicação</label>
+                    <input asp-for="DataPublicacao" type="number" class="form-control" placeholder="Ex: 1943">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Gênero</label>
+                    <input asp-for="Genero" type="text" class="form-control" placeholder="Ex: Fábula">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Número de Páginas</label>
+                    <input asp-for="NumPaginas" type="number" class="form-control" placeholder="Ex: 96">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">Resumo/Resenha</label>
+                    <textarea class="form-control" rows="4" placeholder="Escreva um breve resumo da obra..."></textarea>
+                </div>
+
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-success px-4">Salvar Livro</button>
+                    <a asp-controller="Biblioteca" asp-action="Index" class="btn btn-outline-secondary px-4">Voltar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

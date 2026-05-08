@@ -1,0 +1,86 @@
+@model Biblioteca.Models.Livro
+
+<div class="container mt-5">
+
+    <div class="row">
+
+        <!-- CAPA (placeholder) -->
+        <div class="col-md-4 text-center">
+            <div class="rounded shadow-sm mb-3 d-flex align-items-center justify-content-center"
+                 style="background-color: #e9ecef; height: 300px;">
+                <span style="font-size: 40px;"> MEOW </span>
+            </div>
+        </div>
+
+        <!-- INFORMAÇÕES -->
+        <div class="col-md-8">
+
+            <h2 style="color: #1bc29e; font-weight: bold;">
+                @Model.Titulo
+            </h2>
+
+            <p class="text-muted">
+                <strong>Autor:</strong> @Model.Autor
+            </p>
+
+            <p class="text-muted">
+                <strong>Gênero:</strong> @Model.Genero
+            </p>
+
+            <p class="text-muted">
+                <strong>Data de Publicação:</strong>
+                @Model.DataPublicacao.ToString("dd/MM/yyyy")
+            </p>
+
+            <!-- RESENHA COMPLETA -->
+            <h4 class="mt-4" style="color: #1bc29e;">Resenha</h4>
+
+            <p class="text-muted">
+                Este livro é uma obra marcante dentro de seu gênero, trazendo uma narrativa envolvente
+                que prende a atenção do leitor desde as primeiras páginas. A história é construída com
+                riqueza de detalhes, permitindo uma imersão profunda no universo apresentado.
+            </p>
+
+            <p class="text-muted">
+                Ao longo da leitura, o autor desenvolve personagens complexos e bem estruturados,
+                explorando suas emoções, conflitos e evoluções. Isso torna a experiência ainda mais
+                interessante, pois o leitor se conecta com os acontecimentos e com as decisões dos personagens.
+            </p>
+
+            <p class="text-muted">
+                Além disso, a obra aborda temas relevantes como sociedade, valores humanos, desafios pessoais
+                e reflexões sobre o mundo em que vivemos. Esses elementos tornam o livro não apenas uma leitura
+                agradável, mas também enriquecedora.
+            </p>
+
+            <!-- DESTAQUES -->
+            <h5 class="mt-4" style="color: #1bc29e;">Destaques da Obra</h5>
+
+            <ul class="list-group mb-3">
+                <li class="list-group-item">✔ Narrativa envolvente e bem construída</li>
+                <li class="list-group-item">✔ Personagens marcantes</li>
+                <li class="list-group-item">✔ Temas relevantes e reflexivos</li>
+                <li class="list-group-item">✔ Leitura acessível e interessante</li>
+            </ul>
+
+            <!-- CURIOSIDADE -->
+            <h5 class="mt-3" style="color: #1bc29e;">Curiosidade</h5>
+
+            <p class="text-muted">
+                Esta obra é considerada uma das mais importantes dentro de sua categoria e já influenciou
+                diversos outros livros, adaptações e produções culturais ao longo dos anos.
+            </p>
+
+            <!-- BOTÕES -->
+            <a href="/Biblioteca/Autor" class="btn mt-3" style="background-color: #1bc29e; color: white;">
+                Ver Autor
+            </a>
+
+            <a href="/Biblioteca/Index" class="btn btn-secondary mt-3">
+                Voltar
+            </a>
+
+        </div>
+    </div>
+
+</div>
