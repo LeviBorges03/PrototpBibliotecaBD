@@ -3,25 +3,25 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Biblioteca.Repositories;
 
-public class LivroRepository : ILivroRepository
+public class AutorRepository : IAutorRepository
 {
     private readonly BibliotecaContext _context;
 
-    public LivroRepository(BibliotecaContext context)
+    public AutorRepository(BibliotecaContext context)
     {
         _context = context;
     }
 
-    public async Task<List<Livro>> BuscarTodosLivrosAsync()
+    public async Task<List<Autor>> BuscarTodosAutoresAsync()
     {
-        return await _context.Livros.ToListAsync();
+        return await _context.Autores.ToListAsync();
     }
 
-    public async Task<bool> CriarLivroAsync(Livro livro)
+    public async Task<bool> CriarAutorAsync(Autor autor)
     {
         try
         {
-            await _context.Livros.AddAsync(livro);
+            await _context.Autores.AddAsync(autor);
             await _context.SaveChangesAsync();
             return true;
         }

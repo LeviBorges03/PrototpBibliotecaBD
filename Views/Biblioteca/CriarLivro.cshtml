@@ -1,4 +1,4 @@
-@model Livro;
+@model Livro
 
 @{
     ViewData["Title"] = "Cadastrar Livro";
@@ -7,38 +7,43 @@
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <h2 class="text-success mb-4">Cadastrar Novo Livro</h2>
-            <form method="post" asp-action="CriarLivro" asp-controller="Biblioteca">
-                <div class="mb-3">
-                    <label class="form-label fw-bold">Título do Livro</label>
-                    <input asp-for="Titulo" type="text" class="form-control" placeholder="Ex: O Pequeno Príncipe">
-                </div>
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-4 p-md-5">
+                    <h2 class="text-success mb-4 text-center">Cadastrar Novo Livro</h2>
 
-                <div class="mb-3">
-                    <label class="form-label fw-bold">Ano de Publicação</label>
-                    <input asp-for="DataPublicacao" type="number" class="form-control" placeholder="Ex: 1943">
-                </div>
+                    <form method="post" asp-action="CriarLivroAsync" asp-controller="Biblioteca">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Título do Livro</label>
+                            <input asp-for="Titulo" type="text" class="form-control" placeholder="Ex: O Pequeno Príncipe" required>
+                        </div>
 
-                <div class="mb-3">
-                    <label class="form-label fw-bold">Gênero</label>
-                    <input asp-for="Genero" type="text" class="form-control" placeholder="Ex: Fábula">
-                </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Autor</label>
+                            <input asp-for="Autor" type="text" class="form-control" placeholder="Ex: Antoine de Saint-Exupéry" required>
+                        </div>
 
-                <div class="mb-3">
-                    <label class="form-label fw-bold">Número de Páginas</label>
-                    <input asp-for="NumPaginas" type="number" class="form-control" placeholder="Ex: 96">
-                </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Data de Publicação</label>
+                            <input asp-for="DataPublicacao" type="date" class="form-control" required>
+                        </div>
 
-                <div class="mb-3">
-                    <label class="form-label fw-bold">Resumo/Resenha</label>
-                    <textarea class="form-control" rows="4" placeholder="Escreva um breve resumo da obra..."></textarea>
-                </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Gênero</label>
+                            <input asp-for="Genero" type="text" class="form-control" placeholder="Ex: Fábula" required>
+                        </div>
 
-                <div class="mt-4">
-                    <button type="submit" class="btn btn-success px-4">Salvar Livro</button>
-                    <a asp-controller="Biblioteca" asp-action="Index" class="btn btn-outline-secondary px-4">Voltar</a>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Número de Páginas</label>
+                            <input asp-for="NumPaginas" type="number" class="form-control" placeholder="Ex: 96" required>
+                        </div>
+
+                        <div class="mt-4 d-grid gap-2 d-md-flex justify-content-md-end">
+                            <button type="submit" class="btn btn-success px-4">Salvar Livro</button>
+                            <a asp-controller="Biblioteca" asp-action="Index" class="btn btn-outline-secondary px-4">Voltar</a>
+                        </div>
+                    </form>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
 </div>

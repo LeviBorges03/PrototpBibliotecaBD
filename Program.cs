@@ -17,6 +17,7 @@ builder.Services.AddDbContext<BibliotecaContext>(
 );
 
 builder.Services.AddScoped<ILivroRepository, LivroRepository>();
+builder.Services.AddScoped<IAutorRepository, AutorRepository>();
 
 var app = builder.Build();
 
