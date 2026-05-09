@@ -1,26 +1,33 @@
 using Biblioteca.Models;
-
+using Microsoft.EntityFrameworkCore;
 
 namespace Biblioteca.Repositories;
 
-public class LivroRepository :   ILivro.Repository
-
-    readonly BibliotecaContext; _context;
-publi LivroRepository( BibliotecaContext context)
+public class LivroRepository : ILivroRepository
 {
-    _context = context;
-}
+    private readonly BibliotecaContext _context;
 
-public async Task<List<Livro>> BuscarTodosLivros();
-{
-    return await _context. Livros.TolistAsync();
-}
+    public LivroRepository(BibliotecaContext context)
+    {
+        _context = context;
+    }
 
+    public async Task<List<Livro>> BuscarTodosLivrosAsync()
+    {
+        return await _context.Livros.ToListAsync();
+    }
 
-public async Task<bool> CriarLivroAsync (Livro livro)
-
-{
-    await _context.Livro.AddAsync(livro);
-    await _context.SaveChanges
-
+    public async Task<bool> CriarLivroAsync(Livro livro)
+    {
+        try
+        {
+            await _context.Livros.AddAsync(livro);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+        catch (Exception)
+        {
+            return false;
+        }
+    }
 }
