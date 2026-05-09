@@ -1,0 +1,42 @@
+using Biblioteca.Models;
+using Biblioteca.Repositories;
+using Microsoft.EntityFrameworkCore;
+
+var builder = WebApplication.CreateBuilder(args);
+
+var connectionString =
+    builder.Configuration.GetConnectionString("DefaultConnection");
+
+builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<BibliotecaContext>(
+    options => options.UseMySql(
+        connectionString,
+        ServerVersion.AutoDetect(connectionString)
+    )
+);
+
+builder.Services.AddScoped<ILivroRepository, LivroRepository>();
+
+var app = builder.Build();
+
+if (!app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler("/");
+    app.UseHsts();
+}
+
+app.UseHttpsRedirection();
+
+app.UseRouting();
+
+app.UseAuthorization();
+
+app.MapStaticAssets();
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Biblioteca}/{action=Index}/{id?}")
+    .WithStaticAssets();
+
+app.Run();

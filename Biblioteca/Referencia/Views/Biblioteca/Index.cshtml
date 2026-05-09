@@ -1,0 +1,88 @@
+@model List<Biblioteca.Models.Livro>
+@using Biblioteca.Models
+
+<div class="container mt-4">
+
+    <h2 class="text-center mb-4" style="color: #1bc29e; font-weight: bold;">
+        Minha Biblioteca
+    </h2>
+
+    <p class="text-center text-muted mb-5">
+        Bem-vindo ao nosso acervo digital! Aqui você encontra diversos livros incríveis
+        para expandir seu conhecimento e imaginação.
+    </p>
+
+    @if (Model != null && Model.Any())
+    {
+        <div class="row">
+
+            @foreach (Livro item in Model)
+            {
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 shadow-sm border-0 text-center p-3" style="border-radius: 12px;">
+
+                        <div class="rounded mb-3" style="background-color: #e9ecef; height: 180px;"></div>
+
+                        <h5 style="color: #1bc29e; font-weight: bold;">
+                            @item.Titulo
+                        </h5>
+
+                        <p class="text-muted small">
+                            Autor: @item.Autor
+                        </p>
+
+                        <p class="text-muted small">
+                            Uma obra clássica que proporciona uma leitura envolvente e cheia de significado.
+                        </p>
+
+                        <span class="badge rounded-pill mb-2" style="background-color: #1bc29e;">
+                            @item.Genero
+                        </span>
+
+                        <a href="/Biblioteca/Livro" class="btn btn-sm mt-2" style="background-color: #1bc29e; color: white;">
+                            Ver detalhes
+                        </a>
+
+                    </div>
+                </div>
+            }
+
+        </div>
+    }
+    else
+    {
+        <p class="text-center text-muted">Nenhum livro disponível.</p>
+    }
+
+    <div class="row mt-5 pt-4 border-top">
+
+        <div class="col-md-8">
+            <h4 style="color: #1bc29e; font-weight: bold;">
+                Sobre a Biblioteca
+            </h4>
+
+            <p class="text-muted">
+                Nossa biblioteca foi criada com o objetivo de incentivar a leitura e facilitar o acesso
+                ao conhecimento. Aqui você pode explorar diversos títulos e conhecer grandes autores da literatura.
+            </p>
+        </div>
+
+        <div class="col-md-4">
+            <div class="p-3 mb-2 rounded shadow-sm bg-white border-start border-4" style="border-color: #1bc29e !important;">
+                <h6 class="fw-bold">Total de Livros</h6>
+                <small class="text-muted">
+                    @(Model?.Count ?? 0) disponíveis
+                </small>
+            </div>
+
+            <div class="p-3 rounded shadow-sm bg-white border-start border-4" style="border-color: #1bc29e !important;">
+                <h6 class="fw-bold">Dica</h6>
+                <small class="text-muted">
+                    Reserve um tempo diário para leitura 
+                </small>
+            </div>
+        </div>
+
+    </div>
+
+</div>

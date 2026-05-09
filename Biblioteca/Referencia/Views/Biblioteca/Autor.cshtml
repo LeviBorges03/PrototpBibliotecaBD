@@ -1,0 +1,82 @@
+@model Biblioteca.Models.Autor
+@using Biblioteca.Models
+
+<div class="container mt-5">
+
+    <h2 class="mb-4 text-center" style="color: #1bc29e; font-weight: bold;">
+        Autores
+    </h2>
+
+    <!-- BOTÕES DOS AUTORES -->
+    <div class="mb-4 text-center">
+        @foreach (Autor a in ViewBag.Autores)
+        {
+            <a href="/Biblioteca/Autor?nome=@a.Nome"
+               class="btn btn-sm me-2 mb-2"
+               style="background-color: #1bc29e; color: white;">
+                @a.Nome
+            </a>
+        }
+    </div>
+
+    <div class="row">
+
+        <!-- CARD DO AUTOR -->
+        <div class="col-md-4 text-center">
+
+            <div class="card shadow-sm border-0 p-3" style="border-radius: 12px;">
+
+                <div class="rounded mb-3 d-flex align-items-center justify-content-center"
+                     style="background-color: #e9ecef; height: 250px;">
+
+                    <span style="font-size: 40px;"> HEYY</span>
+
+                </div>
+
+                <h5 style="color: #1bc29e; font-weight: bold;">
+                    @Model.Nome
+                </h5>
+
+                <p class="text-muted small">
+                    Nascimento: @Model.DataNascimento.ToString("dd/MM/yyyy")
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- INFORMAÇÕES -->
+        <div class="col-md-8">
+
+            <h4 style="color: #1bc29e; font-weight: bold;">
+                Biografia
+            </h4>
+
+            <p class="text-muted">
+                @Model.Biografia
+            </p>
+
+            <h5 class="mt-4" style="color: #1bc29e;">
+                Obras do Autor
+            </h5>
+
+            <ul class="list-group">
+                @foreach (var livro in Model.Livros)
+                {
+                    <li class="list-group-item">
+                        @livro.Titulo
+                    </li>
+                }
+            </ul>
+
+        </div>
+
+    </div>
+
+    <div class="text-center mt-4">
+        <a href="/Biblioteca/Index" class="btn btn-secondary">
+            Voltar para Home
+        </a>
+    </div>
+
+</div>
