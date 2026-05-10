@@ -12,6 +12,9 @@ builder.Services.AddDbContext<BibliotecaContext>
         ServerVersion.AutoDetect(connectionString))
     );
     
+builder.Services.AddScoped<Biblioteca.Repositories.ILivroRepository, Biblioteca.Repositories.LivroRepository>();
+builder.Services.AddScoped<Biblioteca.Repositories.IAutorRepository, Biblioteca.Repositories.AutorRepository>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -34,6 +37,4 @@ app.MapControllerRoute(
     pattern: "{controller=Biblioteca}/{action=Index}/{id?}")
     .WithStaticAssets();
 
-
 app.Run();
- builder.Services.AddScoped<ILivroRepository. LivroRepository>();

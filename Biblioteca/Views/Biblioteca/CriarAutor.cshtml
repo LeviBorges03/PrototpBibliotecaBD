@@ -1,79 +1,36 @@
+@model Biblioteca.Models.Autor
+
 @{
     ViewData["Title"] = "Cadastrar Autor";
 }
 
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastrar Autor</title>
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow-sm mt-5">
+            <div class="card-body p-4">
+                <h2 class="text-center mb-4" style="color: var(--primary); font-weight: bold;">Cadastro de Autor</h2>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+                <form asp-controller="Biblioteca" asp-action="CriarAutor" method="post">
+                    <div class="mb-3">
+                        <label asp-for="Nome" class="form-label fw-bold">Nome do Autor</label>
+                        <input asp-for="Nome" class="form-control" placeholder="Digite o nome do autor" required />
+                    </div>
 
-    <style>
-        body {
-            background: linear-gradient(135deg, #0d6efd, #1e3c72);
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: Arial, sans-serif;
-        }
+                    <div class="mb-3">
+                        <label asp-for="DataNascimento" class="form-label fw-bold">Data de Nascimento</label>
+                        <input asp-for="DataNascimento" type="date" class="form-control" required />
+                    </div>
 
-        .card-cadastro {
-            width: 100%;
-            max-width: 500px;
-            background: white;
-            border-radius: 20px;
-            padding: 35px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
+                    <div class="mb-3">
+                        <label asp-for="Biografia" class="form-label fw-bold">Biografia</label>
+                        <textarea asp-for="Biografia" class="form-control" rows="4" placeholder="Digite uma breve biografia" required></textarea>
+                    </div>
 
-        .titulo {
-            text-align: center;
-            margin-bottom: 25px;
-            color: #0d6efd;
-            font-weight: bold;
-        }
-
-        .btn-custom {
-            width: 100%;
-            border-radius: 10px;
-            padding: 10px;
-            font-weight: bold;
-        }
-    </style>
-</head>
-<body>
-
-    <div class="card-cadastro">
-        <h2 class="titulo">Cadastro de Autor</h2>
-
-        <form>
-            <div class="mb-3">
-                <label class="form-label">Nome do Autor</label>
-                <input type="text" class="form-control" placeholder="Digite o nome do autor">
+                    <button type="submit" class="btn btn-primary w-100 fw-bold p-2" style="border-radius: 10px;">
+                        Cadastrar Autor
+                    </button>
+                </form>
             </div>
-
-            <div class="mb-3">
-                <label class="form-label">Nacionalidade</label>
-                <input type="text" class="form-control" placeholder="Digite a nacionalidade">
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">Data de Nascimento</label>
-                <input type="date" class="form-control">
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">Biografia</label>
-                <textarea class="form-control" rows="4" placeholder="Digite uma breve biografia"></textarea>
-            </div>
-
-            <input type="submit" value="Cadastrar Autor" class="btn btn-primary btn-custom">
-        </form>
+        </div>
     </div>
-//form method= post aspaction= CriarLivro aspController = Biblioteca form
-</body>
-</html>
+</div>

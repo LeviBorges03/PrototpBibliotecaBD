@@ -1,18 +1,20 @@
 using Biblioteca.Models;
+using Biblioteca.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Biblioteca.Controllers;
 
 public class BibliotecaController : Controller
 {
+    private readonly ILivroRepository _livroRepository;
+    private readonly IAutorRepository _autorRepository;
 
-    readonly ILivroRepository 
-    
-    public BibliotecaController (ILivroRepository _LivroRepository)
+    public BibliotecaController(ILivroRepository livroRepository, IAutorRepository autorRepository)
     {
-        -
-
+        _livroRepository = livroRepository;
+        _autorRepository = autorRepository;
     }
+
     public IActionResult Index()
     {
         List<Livro> l1 = new List<Livro>()
@@ -120,13 +122,18 @@ public class BibliotecaController : Controller
     {
         return View();
     }
-}
 
- [HttpPost]
-    public async Task<IActionResult> CriarLivroAsync()
-
+    [HttpPost]
+    public async Task<IActionResult> CriarLivro(Livro livro)
     {
-        await _livroRepository.CriarLivroAsync(Livro);
+        await _livroRepository.CriarLivroAsync(livro);
         return RedirectToAction("CriarLivro");
-        
     }
+
+    [HttpPost]
+    public async Task<IActionResult> CriarAutor(Autor autor)
+    {
+        await _autorRepository.CriarAutorAsync(autor);
+        return RedirectToAction("CriarAutor");
+    }
+}
