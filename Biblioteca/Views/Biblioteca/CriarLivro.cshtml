@@ -1,51 +1,44 @@
 @model Biblioteca.Models.Livro
-
 @{
     ViewData["Title"] = "Cadastrar Livro";
 }
 
-<div class="row justify-content-center">
-    <div class="col-md-6">
-        <div class="card shadow-sm mt-5">
-            <div class="card-body p-4">
-                <h2 class="text-center mb-4" style="color: var(--primary); font-weight: bold;">Cadastro de Livro</h2>
+<div class="container d-flex justify-content-center align-items-center mt-5">
+    <div class="card shadow-sm p-4" style="max-width: 550px; width: 100%; border-radius: 15px;">
+        <h2 class="text-center mb-4" style="color: var(--primary); font-weight: bold;">Cadastro de Livro</h2>
 
-                <form asp-controller="Biblioteca" asp-action="CriarLivro" method="post">
-                    <div class="mb-3">
-                        <label asp-for="Titulo" class="form-label fw-bold">Título do Livro</label>
-                        <input asp-for="Titulo" class="form-control" placeholder="Digite o título do livro" required />
-                    </div>
-
-                    <div class="mb-3">
-                        <label asp-for="Autor" class="form-label fw-bold">Autor</label>
-                        <input asp-for="Autor" class="form-control" placeholder="Digite o nome do autor" required />
-                    </div>
-
-                    <div class="mb-3">
-                        <label asp-for="Genero" class="form-label fw-bold">Gênero / Categoria</label>
-                        <input asp-for="Genero" class="form-control" placeholder="Digite o gênero literário" required />
-                    </div>
-
-                    <div class="mb-3">
-                        <label asp-for="NumPaginas" class="form-label fw-bold">Número de Páginas</label>
-                        <input asp-for="NumPaginas" type="number" class="form-control" placeholder="Digite o número de páginas" required />
-                    </div>
-
-                    <div class="mb-3">
-                        <label asp-for="DataPublicacao" class="form-label fw-bold">Data de Publicação</label>
-                        <input asp-for="DataPublicacao" type="date" class="form-control" required />
-                    </div>
-
-                    <div class="mb-3">
-                        <label asp-for="CorCapa" class="form-label fw-bold">Cor da Capa (Hexadecimal)</label>
-                        <input asp-for="CorCapa" type="color" class="form-control form-control-color w-100" title="Escolha a cor da capa" required />
-                    </div>
-
-                    <button type="submit" class="btn btn-primary w-100 fw-bold p-2" style="border-radius: 10px;">
-                        Cadastrar Livro
-                    </button>
-                </form>
+        <form asp-controller="Biblioteca" asp-action="CriarLivro" method="post">
+            <div class="mb-3">
+                <label asp-for="Titulo" class="form-label fw-bold">Título do Livro</label>
+                <input asp-for="Titulo" class="form-control" placeholder="Digite o título do livro" required />
             </div>
-        </div>
+
+            <div class="mb-3">
+                <label asp-for="Autor" class="form-label fw-bold">Autor</label>
+                <input asp-for="Autor" class="form-control" placeholder="Digite o nome do autor" required />
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Genero" class="form-label fw-bold">Categoria/Gênero</label>
+                <input asp-for="Genero" class="form-control" placeholder="Digite a categoria" required />
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="DataPublicacao" class="form-label fw-bold">Data de Publicação</label>
+                <input asp-for="DataPublicacao" type="date" class="form-control" required />
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="NumPaginas" class="form-label fw-bold">Número de Páginas</label>
+                <input asp-for="NumPaginas" type="number" class="form-control" placeholder="Digite o número de páginas" required />
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="CorCapa" class="form-label fw-bold">Cor da Capa</label>
+                <input asp-for="CorCapa" type="color" class="form-control form-control-color w-100" />
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100 fw-bold" style="border-radius: 10px; padding: 10px;">Cadastrar Livro</button>
+        </form>
     </div>
 </div>

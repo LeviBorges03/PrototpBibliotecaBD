@@ -1,26 +1,48 @@
+using System.Collections.Generic;
+using System.Linq;
 using Biblioteca.Models;
-using Microsoft.EntityFrameworkCore;
 
-namespace Biblioteca.Repositories;
-
-public class AutorRepository : IAutorRepository
+namespace Biblioteca.Repositories
 {
-    private readonly BibliotecaContext _context;
-
-    public AutorRepository(BibliotecaContext context)
+    public class AutorRepository : IAutorRepository
     {
-        _context = context;
-    }
+        private readonly BibliotecaContext _context;
 
-    public async Task<List<Autor>> BuscarTodosAutoresAsync()
-    {
-        return await _context.Autores.ToListAsync();
-    }
+        public AutorRepository(BibliotecaContext context)
+        {
+            _context = context;
+        }
 
-    public async Task<bool> CriarAutorAsync(Autor autor)
-    {
-        await _context.Autores.AddAsync(autor);
-        await _context.SaveChangesAsync();
-        return true;
+        public IEnumerable<Autor> GetAll()
+        {
+            return _context.Autores.ToList();
+        }
+
+        public Autor? GetById(int id)
+        {
+            return _context.Autores.FirstOrDefault(a => a.Id == id);
+        }
+
+        public void Add(Autor autor)
+        {
+            _context.Autores.Add(autor);
+            _context.SaveChanges();
+        }
+
+        public void Update(Autor autor)
+        {
+            _context.Autores.Update(autor);
+            _context.SaveChanges();
+        }
+
+        public void Delete(int id)
+        {
+            var autor = _context.Autores.FirstOrDefault(a => a.Id == id);
+            if (autor != null)
+            {
+                _context.Autores.Remove(autor);
+                _context.SaveChanges();
+            }
+        }
     }
 }

@@ -4,6 +4,7 @@ using Biblioteca.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Biblioteca.Migrations
 {
     [DbContext(typeof(BibliotecaContext))]
-    partial class BibliotecaContextModelSnapshot : ModelSnapshot
+    [Migration("20260511035553_CreateBibliotecaDb")]
+    partial class CreateBibliotecaDb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,9 +36,6 @@ namespace Biblioteca.Migrations
                     b.Property<string>("Biografia")
                         .IsRequired()
                         .HasColumnType("longtext");
-
-                    b.Property<DateOnly>("DataNascimento")
-                        .HasColumnType("date");
 
                     b.Property<string>("Nome")
                         .IsRequired()
@@ -57,9 +57,6 @@ namespace Biblioteca.Migrations
                     b.Property<string>("Autor")
                         .HasColumnType("longtext");
 
-                    b.Property<int?>("AutorId")
-                        .HasColumnType("int");
-
                     b.Property<string>("CorCapa")
                         .HasColumnType("longtext");
 
@@ -77,21 +74,7 @@ namespace Biblioteca.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AutorId");
-
                     b.ToTable("Livros");
-                });
-
-            modelBuilder.Entity("Biblioteca.Models.Livro", b =>
-                {
-                    b.HasOne("Biblioteca.Models.Autor", null)
-                        .WithMany("Livros")
-                        .HasForeignKey("AutorId");
-                });
-
-            modelBuilder.Entity("Biblioteca.Models.Autor", b =>
-                {
-                    b.Navigation("Livros");
                 });
 #pragma warning restore 612, 618
         }

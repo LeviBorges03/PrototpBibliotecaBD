@@ -1,2 +1,6 @@
-[Bb]in/
+**/bin/
+**/obj/
+**/test-results/
 [Oo]bj/
+[Bb]in/
+build_output.txt

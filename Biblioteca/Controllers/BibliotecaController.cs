@@ -6,15 +6,15 @@ namespace Biblioteca.Controllers;
 
 public class BibliotecaController : Controller
 {
+
     private readonly ILivroRepository _livroRepository;
     private readonly IAutorRepository _autorRepository;
 
-    public BibliotecaController(ILivroRepository livroRepository, IAutorRepository autorRepository)
+    public BibliotecaController (ILivroRepository livroRepository, IAutorRepository autorRepository)
     {
         _livroRepository = livroRepository;
         _autorRepository = autorRepository;
     }
-
     public IActionResult Index()
     {
         List<Livro> l1 = new List<Livro>()
@@ -126,14 +126,22 @@ public class BibliotecaController : Controller
     [HttpPost]
     public async Task<IActionResult> CriarLivro(Livro livro)
     {
-        await _livroRepository.CriarLivroAsync(livro);
-        return RedirectToAction("CriarLivro");
+        if (ModelState.IsValid)
+        {
+            await _livroRepository.CriarLivroAsync(livro);
+            return RedirectToAction("Index");
+        }
+        return View(livro);
     }
 
     [HttpPost]
-    public async Task<IActionResult> CriarAutor(Autor autor)
+    public IActionResult CriarAutor(Autor autor)
     {
-        await _autorRepository.CriarAutorAsync(autor);
-        return RedirectToAction("CriarAutor");
+        if (ModelState.IsValid)
+        {
+            _autorRepository.Add(autor);
+            return RedirectToAction("Index");
+        }
+        return View(autor);
     }
 }

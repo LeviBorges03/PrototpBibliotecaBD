@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Biblioteca.Migrations
 {
     /// <inheritdoc />
-    public partial class CriarAutor : Migration
+    public partial class CreateBibliotecaDb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -23,7 +23,6 @@ namespace Biblioteca.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Nome = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    DataNascimento = table.Column<DateOnly>(type: "date", nullable: false),
                     Biografia = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
@@ -48,34 +47,23 @@ namespace Biblioteca.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     DataPublicacao = table.Column<DateOnly>(type: "date", nullable: false),
                     CorCapa = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    AutorId = table.Column<int>(type: "int", nullable: true)
+                        .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Livros", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Livros_Autores_AutorId",
-                        column: x => x.AutorId,
-                        principalTable: "Autores",
-                        principalColumn: "Id");
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Livros_AutorId",
-                table: "Livros",
-                column: "AutorId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Livros");
+                name: "Autores");
 
             migrationBuilder.DropTable(
-                name: "Autores");
+                name: "Livros");
         }
     }
 }

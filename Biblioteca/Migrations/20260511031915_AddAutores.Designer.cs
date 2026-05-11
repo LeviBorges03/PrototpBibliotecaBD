@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Biblioteca.Migrations
 {
     [DbContext(typeof(BibliotecaContext))]
-    [Migration("20260509235215_CriarAutor")]
-    partial class CriarAutor
+    [Migration("20260511031915_AddAutores")]
+    partial class AddAutores
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -37,9 +37,6 @@ namespace Biblioteca.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<DateOnly>("DataNascimento")
-                        .HasColumnType("date");
-
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -60,9 +57,6 @@ namespace Biblioteca.Migrations
                     b.Property<string>("Autor")
                         .HasColumnType("longtext");
 
-                    b.Property<int?>("AutorId")
-                        .HasColumnType("int");
-
                     b.Property<string>("CorCapa")
                         .HasColumnType("longtext");
 
@@ -80,21 +74,7 @@ namespace Biblioteca.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AutorId");
-
                     b.ToTable("Livros");
-                });
-
-            modelBuilder.Entity("Biblioteca.Models.Livro", b =>
-                {
-                    b.HasOne("Biblioteca.Models.Autor", null)
-                        .WithMany("Livros")
-                        .HasForeignKey("AutorId");
-                });
-
-            modelBuilder.Entity("Biblioteca.Models.Autor", b =>
-                {
-                    b.Navigation("Livros");
                 });
 #pragma warning restore 612, 618
         }
