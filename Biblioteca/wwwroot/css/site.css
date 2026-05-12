@@ -28,4 +28,10 @@ body {
 
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
+}:root {
+    --primary: #2c3e50;
+    --accent: #3498db;
+    --bg-light: #f4f7f6;
+    --white: #ffffff;
+    --shadow: 0 4px 12px rgba(0,0,0,0.1);
 }

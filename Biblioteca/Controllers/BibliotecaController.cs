@@ -103,12 +103,15 @@ public class BibliotecaController : Controller
 
     public IActionResult Livro()
     {
-        return View();
+        // Just return a dummy/empty view model to avoid NullReferenceException for now,
+        // since the original SPA relies heavily on localStorage and an empty model.
+        return View(new Livro());
     }
 
     public IActionResult Autor()
     {
-        return View();
+        // Just return a dummy/empty view model to avoid NullReferenceException
+        return View(new Autor { DataNascimento = DateOnly.FromDateTime(DateTime.Now) });
     }
 
     
@@ -118,6 +121,7 @@ public class BibliotecaController : Controller
     }
    
     
+    [HttpGet]
     public IActionResult CriarAutor()
     {
         return View();
