@@ -104,7 +104,8 @@ public class BibliotecaController : Controller
 
     public async Task<IActionResult> Index()
     {
-        var dbLivros = await _livroRepository.BuscarTodosLivros();
+        List<Livro> dbLivros = null;
+        try { dbLivros = await _livroRepository.BuscarTodosLivros(); } catch { }
 
         var combinedLivros = GetLivrosDefault();
         if (dbLivros != null && dbLivros.Any())
@@ -122,7 +123,8 @@ public class BibliotecaController : Controller
 
         if (!string.IsNullOrEmpty(titulo))
         {
-            var dbLivros = await _livroRepository.BuscarTodosLivros();
+            List<Livro> dbLivros = null;
+        try { dbLivros = await _livroRepository.BuscarTodosLivros(); } catch { }
             var dbMatch = dbLivros?.FirstOrDefault(l => l.Titulo != null && l.Titulo.Equals(titulo, StringComparison.OrdinalIgnoreCase));
 
             if (dbMatch != null)
@@ -147,13 +149,15 @@ public class BibliotecaController : Controller
         Autor model = new Autor { DataNascimento = DateOnly.FromDateTime(DateTime.Now) };
         if (!string.IsNullOrEmpty(nome))
         {
-            var dbAutores = _autorRepository.GetAll();
+            IEnumerable<Autor> dbAutores = null;
+            try { dbAutores = _autorRepository.GetAll(); } catch { }
             var dbMatch = dbAutores?.FirstOrDefault(a => a.Nome != null && a.Nome.Equals(nome, StringComparison.OrdinalIgnoreCase));
 
             if (dbMatch != null)
             {
                 model = dbMatch;
-                var dbLivros = await _livroRepository.BuscarTodosLivros();
+                List<Livro> dbLivros = null;
+        try { dbLivros = await _livroRepository.BuscarTodosLivros(); } catch { }
                 var combinedLivros = GetLivrosDefault();
                 if (dbLivros != null && dbLivros.Any()) combinedLivros.AddRange(dbLivros);
 
@@ -164,7 +168,8 @@ public class BibliotecaController : Controller
                 model.Nome = nome;
                 model.Biografia = "Biografia não disponível no momento.";
 
-                var dbLivros = await _livroRepository.BuscarTodosLivros();
+                List<Livro> dbLivros = null;
+        try { dbLivros = await _livroRepository.BuscarTodosLivros(); } catch { }
                 var combinedLivros = GetLivrosDefault();
                 if (dbLivros != null && dbLivros.Any()) combinedLivros.AddRange(dbLivros);
 
