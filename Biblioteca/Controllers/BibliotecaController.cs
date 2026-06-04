@@ -1,21 +1,28 @@
 using Biblioteca.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Diagnostics;
+using Biblioteca.Repositories;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Biblioteca.Controllers;
 
 public class BibliotecaController : Controller
 {
+    private readonly ILivroRepository _livroRepository;
+    private readonly IAutorRepository _autorRepository;
 
-    readonly ILivroRepository 
-    
-    public BibliotecaController (ILivroRepository _LivroRepository)
+    public BibliotecaController(ILivroRepository livroRepository, IAutorRepository autorRepository)
     {
-        -
-
+        _livroRepository = livroRepository;
+        _autorRepository = autorRepository;
     }
-    public IActionResult Index()
+
+    private List<Livro> GetLivrosDefault()
     {
-        List<Livro> l1 = new List<Livro>()
+        return new List<Livro>
         {
             new Livro { Titulo = "O Alquimista", Autor = "Paulo Coelho", Genero = "Ficção", NumPaginas = 208, DataPublicacao = new DateOnly(1988, 1, 1), CorCapa = "#D4AF37" },
             new Livro { Titulo = "Harry Potter and the Prisoner of Azkaban", Autor = "J.K. Rowling", Genero = "Fantasia", NumPaginas = 317, DataPublicacao = new DateOnly(1999, 7, 8), CorCapa = "#4A235A" },
@@ -92,41 +99,116 @@ public class BibliotecaController : Controller
             new Livro { Titulo = "O Nome da Rosa", Autor = "Umberto Eco", Genero = "Mistério Histórico", NumPaginas = 512, DataPublicacao = new DateOnly(1980, 1, 1), CorCapa = "#7E5109" },
             new Livro { Titulo = "O Corvo", Autor = "Edgar Allan Poe", Genero = "Poesia Gótica", NumPaginas = 48, DataPublicacao = new DateOnly(1845, 1, 29), CorCapa = "#1B2631" },
             new Livro { Titulo = "Ensaio sobre a Lucidez", Autor = "José Saramago", Genero = "Alegoria", NumPaginas = 328, DataPublicacao = new DateOnly(2004, 1, 1), CorCapa = "#D35400" },
-            new Livro { Titulo = "A Peste", Autor = "Albert Camus", Genero = "Filosofia", NumPaginas = 308, DataPublicacao = new DateOnly(1947, 1, 1), CorCapa = "#922B21" }
-        };
+            new Livro { Titulo = "A Peste", Autor = "Albert Camus", Genero = "Filosofia", NumPaginas = 308, DataPublicacao = new DateOnly(1947, 1, 1), CorCapa = "#922B21" }};
+    }
 
-        var livrosOrdenados = l1.OrderByDescending(l => l.DataPublicacao).ToList();
+    public async Task<IActionResult> Index()
+    {
+        List<Livro> dbLivros = null;
+        try { dbLivros = await _livroRepository.BuscarTodosLivros(); } catch { }
+
+        var combinedLivros = GetLivrosDefault();
+        if (dbLivros != null && dbLivros.Any())
+        {
+            combinedLivros.AddRange(dbLivros);
+        }
+
+        var livrosOrdenados = combinedLivros.OrderByDescending(l => l.DataPublicacao).ToList();
         return View(livrosOrdenados);
     }
 
-    public IActionResult Livro()
+    public async Task<IActionResult> Livro(string titulo)
     {
-        return View();
+        Livro model = new Livro();
+
+        if (!string.IsNullOrEmpty(titulo))
+        {
+            List<Livro> dbLivros = null;
+        try { dbLivros = await _livroRepository.BuscarTodosLivros(); } catch { }
+            var dbMatch = dbLivros?.FirstOrDefault(l => l.Titulo != null && l.Titulo.Equals(titulo, StringComparison.OrdinalIgnoreCase));
+
+            if (dbMatch != null)
+            {
+                model = dbMatch;
+            }
+            else
+            {
+                var localMatch = GetLivrosDefault().FirstOrDefault(l => l.Titulo != null && l.Titulo.Equals(titulo, StringComparison.OrdinalIgnoreCase));
+                if (localMatch != null)
+                {
+                    model = localMatch;
+                }
+            }
+        }
+
+        return View(model);
     }
 
-    public IActionResult Autor()
+    public async Task<IActionResult> Autor(string nome)
     {
-        return View();
+        Autor model = new Autor { DataNascimento = DateOnly.FromDateTime(DateTime.Now) };
+        if (!string.IsNullOrEmpty(nome))
+        {
+            IEnumerable<Autor> dbAutores = null;
+            try { dbAutores = _autorRepository.GetAll(); } catch { }
+            var dbMatch = dbAutores?.FirstOrDefault(a => a.Nome != null && a.Nome.Equals(nome, StringComparison.OrdinalIgnoreCase));
+
+            if (dbMatch != null)
+            {
+                model = dbMatch;
+                List<Livro> dbLivros = null;
+        try { dbLivros = await _livroRepository.BuscarTodosLivros(); } catch { }
+                var combinedLivros = GetLivrosDefault();
+                if (dbLivros != null && dbLivros.Any()) combinedLivros.AddRange(dbLivros);
+
+                model.Livros = combinedLivros.Where(l => l.Autor != null && l.Autor.Equals(nome, StringComparison.OrdinalIgnoreCase)).ToList();
+            }
+            else
+            {
+                model.Nome = nome;
+                model.Biografia = "Biografia não disponível no momento.";
+
+                List<Livro> dbLivros = null;
+        try { dbLivros = await _livroRepository.BuscarTodosLivros(); } catch { }
+                var combinedLivros = GetLivrosDefault();
+                if (dbLivros != null && dbLivros.Any()) combinedLivros.AddRange(dbLivros);
+
+                model.Livros = combinedLivros.Where(l => l.Autor != null && l.Autor.Equals(nome, StringComparison.OrdinalIgnoreCase)).ToList();
+            }
+        }
+        return View(model);
     }
 
-    
     public IActionResult CriarLivro()
     {
         return View();
     }
    
-    
+    [HttpGet]
     public IActionResult CriarAutor()
     {
         return View();
     }
-}
 
- [HttpPost]
-    public async Task<IActionResult> CriarLivroAsync()
-
+    [HttpPost]
+    public async Task<IActionResult> CriarLivro(Livro livro)
     {
-        await _livroRepository.CriarLivroAsync(Livro);
-        return RedirectToAction("CriarLivro");
-        
+        if (ModelState.IsValid)
+        {
+            await _livroRepository.CriarLivroAsync(livro);
+            return RedirectToAction("Index");
+        }
+        return View(livro);
     }
+
+    [HttpPost]
+    public IActionResult CriarAutor(Autor autor)
+    {
+        if (ModelState.IsValid)
+        {
+            _autorRepository.Add(autor);
+            return RedirectToAction("Index");
+        }
+        return View(autor);
+    }
+}

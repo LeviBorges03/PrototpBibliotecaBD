@@ -1,4 +1,5 @@
 using Biblioteca.Models;
+using Biblioteca.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +13,9 @@ builder.Services.AddDbContext<BibliotecaContext>
         ServerVersion.AutoDetect(connectionString))
     );
     
+builder.Services.AddScoped<ILivroRepository, LivroRepository>();
+builder.Services.AddScoped<IAutorRepository, AutorRepository>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -34,6 +38,4 @@ app.MapControllerRoute(
     pattern: "{controller=Biblioteca}/{action=Index}/{id?}")
     .WithStaticAssets();
 
-
 app.Run();
- builder.Services.AddScoped<ILivroRepository. LivroRepository>();
